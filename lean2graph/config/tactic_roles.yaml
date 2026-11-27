@@ -1,0 +1,41 @@
+claim_introduction:
+  - Lean.Parser.Tactic.tacticHave__
+  - Lean.Parser.Tactic.tacticObtain
+  - Lean.Parser.Tactic.suffices
+  - Lean.Parser.Tactic.show
+calc:
+  - Lean.calcTactic
+case_split:
+  - Lean.Parser.Tactic.cases
+  - Lean.Parser.Tactic.rcases
+  - Lean.Parser.Tactic.byCases
+  - Lean.Parser.Tactic.match
+induction:
+  - Lean.Parser.Tactic.induction
+rewrite:
+  - Lean.Parser.Tactic.rw
+  - Lean.Parser.Tactic.rwSeq
+  - Lean.Parser.Tactic.rwa
+  - Lean.Parser.Tactic.rewriteSeq
+definition_unfolding:
+  - Lean.Parser.Tactic.unfold
+lemma_application:
+  - Lean.Parser.Tactic.exact
+  - Lean.Parser.Tactic.apply
+  - Lean.Parser.Tactic.refine
+intro:
+  - Lean.Parser.Tactic.intro
+  - Lean.Parser.Tactic.intros
+  - Lean.Parser.Tactic.rintro
+term_construction:
+  - Lean.Parser.Term.byTactic
+automation:
+  omega: Lean.Parser.Tactic.omega
+  linarith: Mathlib.Tactic.linarith
+  nlinarith: Mathlib.Tactic.nlinarith
+  norm_num: Mathlib.Tactic.normNum
+  ring: Mathlib.Tactic.ring
+  positivity: Mathlib.Tactic.positivity
+  simp: Lean.Parser.Tactic.simp
+  decide: Lean.Parser.Tactic.decide
+  aesop: Mathlib.Tactic.aesop

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lean2graph/proof-claim/v2",
+  "type": "object",
+  "required": ["directed", "project_id", "decl_name", "schema_version", "edge_convention", "nodes", "edges"],
+  "properties": {
+    "directed": {"const": true},
+    "project_id": {"type": "string", "minLength": 1},
+    "decl_name": {"type": "string", "minLength": 1},
+    "schema_version": {"type": "integer", "const": 2},
+    "edge_convention": {"const": "claim -> inference -> claim"},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "range", "range_origin", "origin"],
+        "properties": {
+          "id": {"type": "string"},
+          "kind": {"enum": ["claim", "inference", "decl"]},
+          "range": {"$ref": "#/$defs/rangeOrNull"},
+          "range_origin": {"enum": ["lean", "heuristic", "none"]},
+          "origin": {"type": "string"},
+          "role": {"type": "string"},
+          "user_name": {"type": "string"},
+          "statement_pretty": {"type": "string"},
+          "type_expr_id": {"type": "string"},
+          "scope_id": {"type": "string"},
+          "introduced_by": {"type": "string"},
+          "fan_out": {"type": "number", "minimum": 0},
+          "importance": {"type": "number", "minimum": 0, "maximum": 1},
+          "tactic_text": {"type": "string"},
+          "syntax_kind": {"type": "string"},
+          "justification_type": {"type": "string"},
+          "parent_inference": {"type": ["string", "null"]},
+          "depth": {"type": "integer", "minimum": 0},
+          "ordinal": {"type": "integer", "minimum": 0},
+          "status": {"enum": ["complete", "partial"]},
+          "partial_reason": {"type": ["string", "null"]},
+          "closed_by_automation": {"type": "boolean"}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"kind": {"const": "claim"}}},
+            "then": {
+              "required": ["role", "user_name", "statement_pretty", "type_expr_id", "scope_id", "introduced_by"]
+            }
+          },
+          {
+            "if": {"properties": {"kind": {"const": "inference"}}},
+            "then": {
+              "required": ["tactic_text", "syntax_kind", "justification_type", "parent_inference", "depth", "ordinal", "scope_id", "status", "partial_reason"]
+            }
+          }
+        ],
+        "additionalProperties": true
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "target", "kind"],
+        "properties": {
+          "source": {"type": "string"},
+          "target": {"type": "string"},
+          "kind": {"enum": ["premise", "conclusion", "contains", "next_step", "refs"]}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "position": {
+      "type": "object",
+      "required": ["line", "column"],
+      "properties": {
+        "line": {"type": "integer", "minimum": 1},
+        "column": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "range": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"$ref": "#/$defs/position"},
+        "end": {"$ref": "#/$defs/position"}
+      },
+      "additionalProperties": false
+    },
+    "rangeOrNull": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/range"}
+      ]
+    }
+  },
+  "additionalProperties": true
+}
