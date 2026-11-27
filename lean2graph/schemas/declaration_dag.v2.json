@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lean2graph/declaration-dag/v2",
+  "type": "object",
+  "required": ["directed", "project_id", "edge_convention", "schema_version", "profile", "nodes", "edges"],
+  "properties": {
+    "directed": {"const": true},
+    "project_id": {"type": "string", "minLength": 1},
+    "edge_convention": {"const": "dependent -> dependency"},
+    "schema_version": {"type": "integer", "const": 2},
+    "profile": {"enum": ["full", "narrative"]},
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "kind", "module", "statement_pretty", "type_expr_id", "target_role", "origin", "project", "range", "name_range", "range_origin"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "kind": {"type": "string"},
+          "module": {"type": ["string", "null"]},
+          "statement_pretty": {"type": "string"},
+          "type_expr_id": {"type": "string"},
+          "docstring": {"type": ["string", "null"]},
+          "target_role": {
+            "enum": ["lemma", "definition", "instance", "projection", "constructor", "type_former", "recursor", "axiom", "notation_infra", "logic_infra", "automation_internal"]
+          },
+          "origin": {"type": "string"},
+          "project": {"type": "boolean"},
+          "folded_into": {"type": ["string", "null"]},
+          "aux_claims": {"type": "array"},
+          "automation_summary": {"type": "object"},
+          "range": {"$ref": "#/$defs/rangeOrNull"},
+          "name_range": {"$ref": "#/$defs/rangeOrNull"},
+          "range_origin": {"enum": ["lean", "heuristic", "none"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "target", "type", "usage_kind", "count", "origin", "evidence", "target_role"],
+        "properties": {
+          "source": {"type": "string"},
+          "target": {"type": "string"},
+          "type": {"enum": ["type_uses", "proof_uses", "body_uses"]},
+          "usage_kind": {"enum": ["applied_head", "argument", "type_level"]},
+          "count": {"type": "integer", "minimum": 1},
+          "origin": {"type": "string"},
+          "evidence": {"type": "string"},
+          "target_role": {
+            "enum": ["lemma", "definition", "instance", "projection", "constructor", "type_former", "recursor", "axiom", "notation_infra", "logic_infra", "automation_internal"]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "position": {
+      "type": "object",
+      "required": ["line", "column"],
+      "properties": {
+        "line": {"type": "integer", "minimum": 1},
+        "column": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "range": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"$ref": "#/$defs/position"},
+        "end": {"$ref": "#/$defs/position"}
+      },
+      "additionalProperties": false
+    },
+    "rangeOrNull": {
+      "oneOf": [
+        {"type": "null"},
+        {"$ref": "#/$defs/range"}
+      ]
+    }
+  },
+  "additionalProperties": true
+}

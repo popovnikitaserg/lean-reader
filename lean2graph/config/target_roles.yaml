@@ -1,0 +1,45 @@
+notation_infra:
+  - HAdd.hAdd
+  - HSub.hSub
+  - HMul.hMul
+  - HDiv.hDiv
+  - HPow.hPow
+  - HSMul.hSMul
+  - OfNat.ofNat
+  - instHPow
+  - instOfNat
+  - NatCast.natCast
+  - IntCast.intCast
+  - RatCast.ratCast
+  - Neg.neg
+  - Inv.inv
+  - Div.div
+  - Pow.pow
+  - LE.le
+  - LT.lt
+  - Membership.mem
+logic_infra:
+  - Eq.mpr
+  - Eq.mp
+  - Eq.refl
+  - Eq.ndrec
+  - Eq.rec
+  - Eq.subst
+  - Eq.symm
+  - Eq.trans
+  - Eq.congrArg
+  - Eq.congr
+  - congrArg
+  - congr
+  - propext
+  - of_eq_true
+  - id
+  - False.elim
+automation_internal:
+  - Lean.Omega
+  - Lean.Meta
+  - Lean.Elab.Tactic
+  - Lean.Meta.Tactic
+  - Mathlib.Tactic
+  - Mathlib.Meta
+  - Mathlib.Lean.Elab

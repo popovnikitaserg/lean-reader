@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lean2graph/validation-report/v2",
+  "type": "object",
+  "required": ["project_id", "schema_version", "metrics", "blocking_failures", "checks"],
+  "properties": {
+    "project_id": {"type": "string"},
+    "schema_version": {"type": "integer", "const": 2},
+    "metrics": {"type": "object"},
+    "blocking_failures": {"type": "integer", "minimum": 0},
+    "checks": {"type": "array"}
+  },
+  "additionalProperties": true
+}
