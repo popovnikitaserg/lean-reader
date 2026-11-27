@@ -150,13 +150,6 @@ out/<project_id>/
   reports/build.log
 ```
 
-Подробнее:
-
-- [Архитектура](docs/ARCHITECTURE.md)
-- [Схема графов](docs/GRAPH_SCHEMA.md)
-- [Валидация](docs/VALIDATION.md)
-- [Решения реализации](docs/DECISIONS.md)
-- [M0 spike](docs/SPIKE.md)
 
 ## Ограничения
 
